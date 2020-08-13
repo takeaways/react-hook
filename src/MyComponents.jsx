@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-
+import PropTypes from 'prop-types';
 MyComponent.propTypes = {
   //컴포넌트에서 올바른 타입 정보를 입력할 수 있도록작성 한다.
+  //중요한 문서의 역할을 한다.
+  title: PropTypes.string,
 };
 
 //다음과 같이 명명된 매개 변수로 작성하는게 좋다.
