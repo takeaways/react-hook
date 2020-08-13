@@ -12,6 +12,11 @@ export default function MyComponent({ title = 'my' }) {
   return (
     <h1>
       {title}
+      {/* 조건부 렌더링 
+        [] != null
+        && 삼항연산자
+      
+      */}
       {width > 400 && width}
     </h1>
   );
