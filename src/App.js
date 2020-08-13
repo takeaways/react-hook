@@ -1,43 +1,40 @@
-import React, { useState } from 'react';
-import Input from './Input';
+import React, {
+  useRef,
+  forwardRef,
+  useState,
+  useImperativeHandle,
+} from 'react';
 
 function App() {
-  const [state, setState] = useState({});
-  const [show, setShow] = useState(false);
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setState({
-      ...state,
-      [name]: value,
-    });
+  const childRef = useRef();
+  const onClick = () => {
+    if (childRef.current) {
+      const name = childRef.current.getName();
+      childRef.current.setList(name);
+    }
   };
   return (
-    <div className='App'>
-      <Input
-        type={'text'}
-        name={'name'}
-        placeholder={'name 입력하세요!'}
-        onChange={handleChange}
-      />
-      <span>{state['name']}</span>
-      <Input
-        type={'password'}
-        name={'passowrd'}
-        placeholder={'password 입력하세요!'}
-        onChange={handleChange}
-      />
-      <span>{state['passowrd']}</span>
-      <button
-        type='button'
-        onClick={() => {
-          setShow(!show);
-        }}
-      >
-        출력
-      </button>
-      {show && <p>{`${JSON.stringify(state)}`}</p>}
+    <div>
+      <User ref={childRef} />
+      <button onClick={onClick}>Click</button>
     </div>
   );
 }
+
+const User = forwardRef(function (_, ref) {
+  const [name, setName] = useState('GI');
+  useImperativeHandle(ref, () => {
+    return {
+      getName: () => name,
+      setList: () => setName((prev) => prev + 'GI'),
+    };
+  });
+
+  return (
+    <div>
+      <h1>Hello {name}</h1>
+    </div>
+  );
+});
 
 export default App;

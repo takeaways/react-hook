@@ -41,36 +41,92 @@ function App() {
 1. 함수 메모이제이션에 특화되어 있다.
 
 ```jsx
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
+import Input from './Input';
+
+const formContents = [
+  { type: 'text', name: 'name', placeholder: 'name을 입력하세요' },
+  { type: 'password', name: 'password', placeholder: 'password 입력하세요' },
+  { type: 'email', name: 'email', placeholder: 'emaild 입력하세요' },
+  { type: 'number', name: 'number', placeholder: 'number 입력하세요' },
+];
 
 function App() {
-  const [value, setValue] = useState(0);
+  const [state, setState] = useState({});
+  const [show, setShow] = useState(false);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setState({
+      ...state,
+      [name]: value,
+    });
+  };
+  return (
+    <div className='App'>
+      {formContents.map((item) => (
+        <Input {...item} onChange={handleChange} />
+      ))}
+
+      <button
+        type='button'
+        onClick={() => {
+          setShow(!show);
+        }}
+      >
+        출력
+      </button>
+      {show && <p>{`${JSON.stringify(state)}`}</p>}
+    </div>
+  );
+}
+
+export default App;
+```
+
+## useImperativeHandle
+
+1. 멤버 변수나 멤버함수가 있는것 처럼 만들 수 있다.
+2. 부모 컴포넌트에서 자식 컴포넌트에 있는 함수를 실행 시키는 방법
+
+```jsx
+import React, {
+  useRef,
+  forwardRef,
+  useState,
+  useImperativeHandle,
+} from 'react';
+
+function App() {
+  const childRef = useRef();
   const onClick = () => {
-    setValue(value++);
+    if (childRef.current) {
+      const name = childRef.current.getName();
+      childRef.current.setList(name);
+    }
   };
-  const handleChange = () => {};
   return (
-    <>
-      <h1>{value}</h1>
-      <button onClick={onClick}>click</button>
-      <Child onChange={handleChange} />
-    </>
+    <div>
+      <User ref={childRef} />
+      <button onClick={onClick}>Click</button>
+    </div>
   );
 }
 
-function Child({ value, onChange, placeholder }) {
-  const [value, setValue] = useState('');
-
-  const handleInputChange = (event) => {
-    onChange(event.target.value);
-  };
+const User = forwardRef(function (_, ref) {
+  const [name, setName] = useState('GI');
+  useImperativeHandle(ref, () => {
+    return {
+      getName: () => name,
+      setList: () => setName((prev) => prev + 'GI'),
+    };
+  });
 
   return (
-    <input
-      value={value}
-      onChange={(event) => setValue(event.target.value)}
-      placeholder={placeholder}
-    />
+    <div>
+      <h1>Hello {name}</h1>
+    </div>
   );
-}
+});
+
+export default App;
 ```
