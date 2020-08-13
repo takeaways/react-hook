@@ -1,4 +1,5 @@
 import React, { useRef, useLayoutEffect, useState } from 'react';
+import MyComponent from './MyComponents';
 
 export default function App() {
   const [width, setWidth] = useState(100);
@@ -17,6 +18,7 @@ export default function App() {
 
   return (
     <div>
+      <MyComponent title={'Hello React'} />
       <div
         ref={widthRef}
         style={{ width, height: 100, backgroundColor: 'green' }}
