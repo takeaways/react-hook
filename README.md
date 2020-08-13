@@ -35,3 +35,42 @@ function App() {
   return <h1>{`Result : ${value}`}</h1>;
 }
 ```
+
+## useCallback
+
+1. 함수 메모이제이션에 특화되어 있다.
+
+```jsx
+import React, { useCallback, useState } from 'react';
+
+function App() {
+  const [value, setValue] = useState(0);
+  const onClick = () => {
+    setValue(value++);
+  };
+  const handleChange = () => {};
+  return (
+    <>
+      <h1>{value}</h1>
+      <button onClick={onClick}>click</button>
+      <Child onChange={handleChange} />
+    </>
+  );
+}
+
+function Child({ value, onChange, placeholder }) {
+  const [value, setValue] = useState('');
+
+  const handleInputChange = (event) => {
+    onChange(event.target.value);
+  };
+
+  return (
+    <input
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      placeholder={placeholder}
+    />
+  );
+}
+```
