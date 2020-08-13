@@ -12,7 +12,7 @@ export default function MyComponent({ title = 'my' }) {
   return (
     <h1>
       {title}
-      {width}
+      {width > 400 && width}
     </h1>
   );
 }
