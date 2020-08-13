@@ -1,40 +1,42 @@
-import React, {
-  useRef,
-  forwardRef,
-  useState,
-  useImperativeHandle,
-} from 'react';
+import React, { useRef, useLayoutEffect, useState } from 'react';
 
-function App() {
-  const childRef = useRef();
-  const onClick = () => {
-    if (childRef.current) {
-      const name = childRef.current.getName();
-      childRef.current.setList(name);
+export default function App() {
+  const [width, setWidth] = useState(100);
+  const widthRef = useRef();
+  //500이상이되면 깜빡인다.
+  /*
+    useEffect일때
+    500보다 큰 값으로 렌더링을 했다가 500보다 크면 다시 500으로 렌더링 하기 때문에 깜빡이는 현상이 발생한다.
+  */
+  useLayoutEffect(() => {
+    console.log(widthRef.current.getBoundingClientRect().width);
+    if (width > 500) {
+      setWidth(500);
     }
-  };
+  }, [width]);
+
   return (
     <div>
-      <User ref={childRef} />
-      <button onClick={onClick}>Click</button>
+      <div
+        ref={widthRef}
+        style={{ width, height: 100, backgroundColor: 'green' }}
+      >
+        test
+      </div>
+      <button
+        onClick={() => {
+          setWidth(Math.floor(Math.random() * 499 + 1));
+        }}
+      >
+        500 ↓
+      </button>
+      <button
+        onClick={() => {
+          setWidth(Math.floor(Math.random() * 500 + 501));
+        }}
+      >
+        500 ↑
+      </button>
     </div>
   );
 }
-
-const User = forwardRef(function (_, ref) {
-  const [name, setName] = useState('GI');
-  useImperativeHandle(ref, () => {
-    return {
-      getName: () => name,
-      setList: () => setName((prev) => prev + 'GI'),
-    };
-  });
-
-  return (
-    <div>
-      <h1>Hello {name}</h1>
-    </div>
-  );
-});
-
-export default App;

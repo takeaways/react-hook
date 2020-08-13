@@ -130,3 +130,26 @@ const User = forwardRef(function (_, ref) {
 
 export default App;
 ```
+
+## useLayoutEffect
+
+1. useEffect와 비슷하게 동작하나 동기적으로 호출한다는 점이 다르다.
+2. 리액트가 렌더링을 하고 실제 돔에 반영은 했지만. 브라우저가 화면을 그리기 전에 useLayoutEffect가 실행이 된다.
+
+   - 렌더링 직후에 돔 요소의 값을 읽어들이는 경우
+   - 조건에 따라서 컴포넌트를 다시 렌더링하고 싶은 경우
+
+```jsx
+
+import React ,{useRef} from "react";
+
+function App(){
+  const timerRef = useRef(-1);
+
+  useEfferc(()=>{
+    timerRef.current = setTimeout(()=>{},1000);
+  }.[])
+}
+
+
+```
