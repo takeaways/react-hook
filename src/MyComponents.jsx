@@ -36,6 +36,3 @@ function useWindowWidth() {
   }, []);
   return width;
 }
-/*
-2
-3*/
