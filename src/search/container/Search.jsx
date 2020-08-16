@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import { Row, Col, Typography } from 'antd';
 
 import Setting from '../component/Setting';
+import SearchInput from './SearchInput';
 
 export default function Search() {
   return (
@@ -20,7 +21,9 @@ export default function Search() {
         </Col>
       </Row>
       <Row justify='center' style={{ marginTop: 50 }}>
-        <Col span={12}>검색</Col>
+        <Col>
+          <SearchInput />
+        </Col>
       </Row>
     </>
   );
