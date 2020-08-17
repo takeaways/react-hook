@@ -1,5 +1,5 @@
 import { takeLeading, put, call, all } from 'redux-saga/effects';
-import { actions, types } from '../state/timeline';
+import { actions, types } from './timeline';
 import { callApiLike } from '../common/api';
 
 export function* fetchData(action) {

@@ -4,6 +4,7 @@ import {
   setValueReducer,
 } from '../../common/redux-helper';
 
+//enum
 export const Types = {
   SetValue: 'search/SetValue',
   FetchAutoComplete: 'search/FetchAutoComplete',

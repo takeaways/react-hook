@@ -1,29 +1,35 @@
 import React from 'react';
 import { AutoComplete, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { actions } from '../state';
 
-/**
- * 컴파일 타임에 프롭을 정의
- * @param {object} param
- * @param {() => void} param.logout
- */
-export default function Settings({}) {
-  function setKeyword(value){}
-  function gotoUser(value){}
+export default function Search() {
+  const keyword = useSelector((state) => state.search.keyword);
+  const dispatch = useDispatch();
+  function setKeyword(value) {
+    if (value !== keyword) {
+      dispatch(actions.setValue(value));
+    }
+  }
+  function togoUser(value) {}
   return (
-    <AutoComplete
-      value={keyword}
-      onChange={setKeyword}
-      onSelect={gotoUser}
-      style={{ width: '100%' }}
-      options={[]}
-      autoFocus
-    >
-      <Input
-        size='large'
-        placeholder='input here'
-        prefix={<SearchOutlined />}
-      />
-    </AutoComplete>
+    <>
+      <AutoComplete
+        value={keyword}
+        onChange={setKeyword}
+        onSelect={togoUser}
+        style={{ width: '100%' }}
+        options={[]}
+        autoFocus
+      >
+        <Input
+          value={keyword}
+          size='large'
+          placeholder='input here'
+          prefix={<SearchOutlined />}
+        />
+      </AutoComplete>
+    </>
   );
 }
