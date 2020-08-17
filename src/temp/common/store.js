@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import friend from '../state/friend';
 import timeline from '../state/timeline';
 const reducer = combineReducers({
@@ -6,5 +7,6 @@ const reducer = combineReducers({
   timeline,
 });
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__?.());
+const composeEnhanders = composeWithDevTools({});
+const store = createStore(reducer, composeEnhanders(applyMiddleware()));
 export default store;

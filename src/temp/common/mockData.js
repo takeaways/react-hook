@@ -1,8 +1,8 @@
 const friends = [
-  { name: 'friend1', age: 21 },
-  { name: 'friend2', age: 22 },
-  { name: 'friend3', age: 23 },
-  { name: 'friend4', age: 24 },
+  { name: 'friend1', age: 15 },
+  { name: 'friend2', age: 20 },
+  { name: 'friend3', age: 24 },
+  { name: 'friend4', age: 59 },
 ];
 
 const timelines = [
