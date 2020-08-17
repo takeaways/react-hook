@@ -233,3 +233,18 @@ function useWindowWidth() {
   1. 비동기 코드가 많을 때 사용.
   2. 제네레이터를 적극적으로 활용한다.
   3. 테스트 코드 작성이 쉽다.
+
+# 제너레이터
+
+```js
+function* f1() {
+  yield 10;
+  yield 20;
+  return 'finished';
+}
+
+const g = f1();
+g.next();
+g.next();
+g.next();
+```

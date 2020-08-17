@@ -1,2 +1,2 @@
 export const MAX_AGE_LIMIT = 30;
-export const MAX_SHOW_LIMIT = 0;
+export const MAX_SHOW_LIMIT = 8;
