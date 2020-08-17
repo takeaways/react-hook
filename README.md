@@ -207,6 +207,9 @@ function useWindowWidth() {
 
 # 리덕스
 
+- flux pattern (단방향)
+  1. action -> middlewares -> reducer -> store
+  2. middleware : store => next => action => {}
 - 컴포넌트 코드로 부터 상태 관리 코드를 분리할 수 있다.
 - 미들웨어를 활용한 다양한 기능 추가
   1. 강력한 미들웨어 라이브러리
