@@ -1,5 +1,6 @@
 import React from 'react';
-import Redux from './temp/Redux';
+
+import Search from './search/container/Search';
 export default function App() {
-  return <Redux />;
+  return <Search />;
 }
