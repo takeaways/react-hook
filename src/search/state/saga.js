@@ -14,25 +14,16 @@ function* fetchAutoComplete({ keyword }) {
   }
 }
 
-function* fetchAllHistory() {
-  const { isSuccess, data } = yield call(callApi, {
-    url: '/history',
-  });
+// function* fetchAllHistory() {
+//   const { isSuccess, data } = yield call(callApi, {
+//     url: '/history',
+//   });
 
-  if (isSuccess && data) {
-    yield put(actions.setValue('history', data));
-  }
-}
+//   if (isSuccess && data) {
+//     yield put(actions.setValue('history', data));
+//   }
+// }
 
 export default function* () {
-  yield all([
-    takeEvery(
-      Types.FetchAutoComplete,
-      makeFetchSaga({ fetchSaga: fetchAutoComplete, canCache: true })
-    ),
-    takeLeading(
-      Types.FetchAllHistory,
-      makeFetchSaga({ fetchSaga: fetchAllHistory, canCache: false })
-    ),
-  ]);
+  yield all([takeEvery(Types.FetchAutoComplete, fetchAutoComplete)]);
 }
